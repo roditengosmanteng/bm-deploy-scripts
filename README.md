@@ -1,3 +1,5 @@
+# Stable version 1.0.0
+
 📁 Phase 0 – Update System
 Filename: phase0_update_system.sh
 Purpose: Update Ubuntu, install essentials, enable firewall
