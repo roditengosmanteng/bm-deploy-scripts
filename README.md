@@ -1,5 +1,32 @@
 # Stable version 1.0.0
 
+====================================
+
+How to deploy new server for SAAS
+
+
+1. Deploy a New Server:
+-OS: Ubuntu 22.04 LTS (recommended)
+-Specs: 1–2 vCPU, 2–4 GB RAM for testing
+
+2. SSH Into the Server:
+ssh root@your.server.ip
+Enter password
+
+3. Clone Your Deployment Scripts
+run: git clone https://github.com/roditengosmanteng/bm-deploy-scripts.git /opt/BillionMail/scripts
+
+4. Make Scripts Executable
+run: chmod +x /opt/BillionMail/scripts/phase*.sh
+
+5. Navigate to your script directory
+cd /opt/BillionMail/scripts
+
+6. Run the Master Deploy Script
+bash phase9_deploy_master.sh
+
+====================================
+
 📁 Phase 0 – Update System
 Filename: phase0_update_system.sh
 Purpose: Update Ubuntu, install essentials, enable firewall
