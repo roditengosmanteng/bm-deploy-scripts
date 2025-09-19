@@ -1,31 +1,14 @@
 #!/bin/bash
-echo "🛡️ Phase 6: Hardening BillionMail login panel..."
+echo "🛡️ Phase 6: Skipping panel credential override (manual mode)..."
 
 LOG_FILE="/opt/BM-Scripts/deploy.log"
 
-# === Define auto credentials ===
-BM_USER="admin12345"
-BM_PASS="password12345"
-BM_PATH="akses"
+# === Confirm container is running ===
+docker ps --filter "name=billionmail-core" --format "✔ Container {{.Names}} is active"
 
-# === Wait for container to be ready ===
-sleep 5
+# === Log placeholder for manual credentials ===
+echo "Panel Username: (set manually)" >> "$LOG_FILE"
+echo "Panel Password: (set manually)" >> "$LOG_FILE"
+echo "Panel URL: (set manually)" >> "$LOG_FILE"
 
-# === Override credentials inside container ===
-docker exec billionmail-core-billionmail-1 bash -c "
-  echo '$BM_USER' > /data/config/admin_user.txt
-  echo '$BM_PASS' > /data/config/admin_pass.txt
-  echo '$BM_PATH' > /data/config/safe_path.txt
-"
-
-# === Restart container to apply changes ===
-docker restart billionmail-core-billionmail-1 >/dev/null
-
-# === Display and log credentials ===
-echo "✅ Panel hardened and credentials applied:"
-echo "   URL: https://$(hostname -I | awk '{print $1}')/$BM_PATH"
-echo "   Username: $BM_USER"
-echo "   Password: $BM_PASS"
-echo "Panel Username: $BM_USER" >> "$LOG_FILE"
-echo "Panel Password: $BM_PASS" >> "$LOG_FILE"
-echo "Panel URL: https://$(hostname -I | awk '{print $1}')/$BM_PATH" >> "$LOG_FILE"
+echo "ℹ️ Panel credentials must be set manually via BillionMail dashboard or CLI."

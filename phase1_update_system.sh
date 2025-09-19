@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "🔧 Phase 0: Updating and securing Ubuntu..."
+echo "🔧 Phase 1: Updating and securing Ubuntu..."
 
 # === Update Package Index ===
 sudo apt update -y

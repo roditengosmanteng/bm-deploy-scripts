@@ -16,8 +16,8 @@ cd "$INSTALL_DIR" || { echo "❌ Failed to enter $INSTALL_DIR"; exit 1; }
 
 # === Run installer or fallback to Docker ===
 if [ -f "install.sh" ]; then
-    echo "🚀 Running install.sh..."
-    bash install.sh || { echo "❌ install.sh failed"; exit 1; }
+    echo "🚀 Running install.sh silently..."
+    bash install.sh </dev/null || { echo "❌ install.sh failed"; exit 1; }
 elif [ -f "docker-compose.yml" ]; then
     echo "🐳 Running Docker Compose..."
     docker compose up -d || { echo "❌ Docker Compose failed"; exit 1; }
