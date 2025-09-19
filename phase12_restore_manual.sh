@@ -15,10 +15,14 @@ if [ ${#BACKUPS[@]} -eq 0 ]; then
     exit 1
 fi
 
-# === List backups with index ===
+# === List backups with index and Malaysia Time ===
 echo "✅ Found ${#BACKUPS[@]} backup(s):"
 for i in "${!BACKUPS[@]}"; do
-    echo "$((i+1))) ${BACKUPS[$i]}"
+    LOCAL_TIME=$(date -d "$(date -r "${BACKUPS[$i]}" +"%Y-%m-%d %H:%M:%S") +8 hours" +"%d-%m-%Y %I:%M:%S %p")
+    NOW=$(date +%s)
+    FILE_TIME=$(date -r "${BACKUPS[$i]}" +%s)
+    AGE_HOURS=$(( (NOW - FILE_TIME) / 3600 ))
+    echo "$((i+1))) ${BACKUPS[$i]} 🕒 Malaysia Time: $LOCAL_TIME (created ${AGE_HOURS} hour(s) ago)"
 done
 
 # === Prompt for selection ===
