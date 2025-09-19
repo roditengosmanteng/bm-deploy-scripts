@@ -28,3 +28,12 @@ fi
 echo "🧹 Applying retention policy..."
 ls -1t "$BACKUP_DIR"/bm_backup_*.tar.gz | tail -n +3 | xargs -r rm -f
 echo "✅ Retention applied: only latest 2 backups kept."
+
+# === List available backups with Malaysia Time ===
+echo ""
+echo "📋 Available Backups:"
+BACKUPS=($(ls -1t "$BACKUP_DIR"/bm_backup_*.tar.gz 2>/dev/null))
+for i in "${!BACKUPS[@]}"; do
+  LOCAL_TIME=$(date -d "$(date -r "${BACKUPS[$i]}" +"%Y-%m-%d %H:%M:%S") +8 hours" +"%d-%m-%Y %I:%M:%S %p")
+  echo "$((i+1))) ${BACKUPS[$i]} (🕒 Malaysia Time: $LOCAL_TIME)"
+done

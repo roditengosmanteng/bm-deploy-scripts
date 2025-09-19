@@ -16,10 +16,16 @@ echo ""
 echo "🗂️ Backup Status:"
 LATEST_BACKUP=$(ls -1t "$BACKUP_DIR"/bm_backup_*.tar.gz 2>/dev/null | head -n 1)
 if [ -n "$LATEST_BACKUP" ]; then
-  BACKUP_UTC=$(date -u -r "$LATEST_BACKUP" +"%Y-%m-%d %H:%M:%S")
-  BACKUP_MY=$(date -d "$BACKUP_UTC +8 hours" +"%d-%m-%Y %I:%M:%S %p")
+  # Malaysia time conversion
+  LOCAL_TIME=$(date -d "$(date -r "$LATEST_BACKUP" +"%Y-%m-%d %H:%M:%S") +8 hours" +"%d-%m-%Y %I:%M:%S %p")
+
+  # Age calculation in hours
+  NOW=$(date +%s)
+  FILE_TIME=$(date -r "$LATEST_BACKUP" +%s)
+  AGE_HOURS=$(( (NOW - FILE_TIME) / 3600 ))
+
   echo "✔ Latest backup: $LATEST_BACKUP"
-  echo "🕒 Malaysia Time: $BACKUP_MY"
+  echo "🕒 Malaysia Time: $LOCAL_TIME (created ${AGE_HOURS} hour(s) ago)"
 else
   echo "❌ No backup found in $BACKUP_DIR"
 fi
