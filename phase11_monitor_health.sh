@@ -16,9 +16,10 @@ echo ""
 echo "🗂️ Backup Status:"
 LATEST_BACKUP=$(ls -1t "$BACKUP_DIR"/bm_backup_*.tar.gz 2>/dev/null | head -n 1)
 if [ -n "$LATEST_BACKUP" ]; then
-  BACKUP_AGE=$(date -r "$LATEST_BACKUP" +"%Y-%m-%d %H:%M:%S")
+  BACKUP_UTC=$(date -u -r "$LATEST_BACKUP" +"%Y-%m-%d %H:%M:%S")
+  BACKUP_MY=$(date -d "$BACKUP_UTC +8 hours" +"%d-%m-%Y %I:%M:%S %p")
   echo "✔ Latest backup: $LATEST_BACKUP"
-  echo "🕒 Timestamp: $BACKUP_AGE"
+  echo "🕒 Malaysia Time: $BACKUP_MY"
 else
   echo "❌ No backup found in $BACKUP_DIR"
 fi
