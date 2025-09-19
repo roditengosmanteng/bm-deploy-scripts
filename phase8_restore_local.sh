@@ -13,6 +13,9 @@ if [ -z "$LATEST_BACKUP" ]; then
     exit 1
 fi
 
+# === Verify archive integrity ===
+tar -tzf "$LATEST_BACKUP" > /dev/null || { echo "❌ Backup archive is corrupted"; exit 1; }
+
 # === Remove current app directory ===
 rm -rf /opt/BillionMail/app
 

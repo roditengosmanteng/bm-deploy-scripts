@@ -11,11 +11,12 @@ mkdir -p $BACKUP_DIR
 
 # === Archive BillionMail app ===
 tar -czf $BACKUP_FILE /opt/BillionMail/app
-
 echo "✅ Backup created: $BACKUP_FILE"
 
-# === Retention policy: keep last 5 backups ===
-echo "🧹 Applying retention policy..."
-ls -1t $BACKUP_DIR/bm_backup_*.tar.gz | tail -n +6 | xargs -r rm -f
+# === Verify archive integrity ===
+tar -tzf $BACKUP_FILE > /dev/null && echo "✅ Archive verified" || { echo "❌ Archive verification failed"; exit 1; }
 
-echo "✅ Retention applied: only latest 5 backups kept."
+# === Retention policy: keep last 2 backups ===
+echo "🧹 Applying retention policy..."
+ls -1t $BACKUP_DIR/bm_backup_*.tar.gz | tail -n +3 | xargs -r rm -f
+echo "✅ Retention applied: only latest 2 backups kept."

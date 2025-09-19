@@ -4,15 +4,11 @@ echo "📦 Phase 5: Installing BillionMail..."
 # === Define install directory ===
 INSTALL_DIR="/opt/BillionMail"
 
-# === Create directory if missing ===
-mkdir -p $INSTALL_DIR
-
-# === Clone BillionMail source ===
-git clone https://github.com/roditengosmanteng/billionmail $INSTALL_DIR/app
+# === Clone official BillionMail repo ===
+git clone https://github.com/aaPanel/BillionMail $INSTALL_DIR
 
 # === Navigate and run installer ===
-cd $INSTALL_DIR/app
-chmod +x install.sh
-./install.sh
+cd $INSTALL_DIR
+bash install.sh
 
-echo "✅ BillionMail installed successfully in $INSTALL_DIR/app"
+echo "✅ BillionMail installed successfully in $INSTALL_DIR"

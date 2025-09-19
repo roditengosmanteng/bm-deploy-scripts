@@ -7,8 +7,8 @@ sudo apt update -y
 # === Upgrade Installed Packages ===
 sudo apt upgrade -y
 
-# === Install Essentials ===
-sudo apt install -y curl git ufw fail2ban
+# === Install Essentials (No Git) ===
+sudo apt install -y curl ufw fail2ban
 
 # === Enable Firewall ===
 sudo ufw allow OpenSSH
