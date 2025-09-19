@@ -20,3 +20,20 @@ CRON_JOB="0 2 * * * root bash $SCRIPT_DIR/phase7_backup_local.sh"
 echo "$CRON_JOB" > /etc/cron.d/bm_local_backup
 
 echo "✅ Full deployment complete. Backup scheduled daily at 2:00 AM."
+
+# === Extract credentials from previous phases ===
+ADMIN_USER=$(grep 'Username:' $SCRIPT_DIR/phase3_create_admin.sh | awk '{print $2}')
+PANEL_USER=$(grep 'Username:' $SCRIPT_DIR/phase6_harden_panel.sh | awk '{print $2}')
+PANEL_PASS=$(grep 'Password:' $SCRIPT_DIR/phase6_harden_panel.sh | awk '{print $2}')
+PANEL_PATH=$(grep 'Internal address:' $SCRIPT_DIR/phase6_harden_panel.sh | awk -F '/' '{print $4}')
+
+# === Display final credentials ===
+echo ""
+echo "🔐 Important credentials:"
+echo "1️⃣ Server admin user:"
+echo "   Username: $ADMIN_USER"
+echo ""
+echo "2️⃣ BillionMail login panel:"
+echo "   URL: https://$(hostname -I | awk '{print $1}')/$PANEL_PATH"
+echo "   Username: $PANEL_USER"
+echo "   Password: $PANEL_PASS"
