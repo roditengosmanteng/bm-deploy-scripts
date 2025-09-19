@@ -13,21 +13,34 @@ How to deploy new server for SAAS
 ssh root@your.server.ip
 Enter password
 
-3. Clone Your Deployment Scripts
+3. Create folder, clone repo, start auto Deployment Master Scripts (phase9_deploy_master.sh)
 
-run:
-git clone https://github.com/roditengosmanteng/bm-deploy-scripts.git
+sudo bash -c 'mkdir -p /opt/BM-Scripts && cd /opt/BM-Scripts && git clone https://github.com/roditengosmanteng/bm-deploy-scripts.git . && chmod +x /opt/BM-Scripts/phase*.sh && bash /opt/BM-Scripts/phase9_deploy_master.sh'
 
-4. Make Scripts Executable
-run: chmod +x /opt/BillionMail/scripts/phase*.sh
+4. Manual Run: Creating local backup with retention policy (save 2 latest backup)
+Run: bash /opt/BM-Scripts/phase7_backup_local.sh
 
-5. Navigate to your script directory
-cd /opt/BillionMail/scripts
+5. Manual Run: Auditing deployment summary (see system specs)
+Run: bash /opt/BM-Scripts/phase10_audit_summary.sh
 
-6. Run the Master Deploy Script
-bash phase9_deploy_master.sh
+6. Manual Run: Health Check
+Run: bash /opt/BM-Scripts/phase11_monitor_health.sh
+
+✅ Real-time container status
+✅ Latest backup timestamp
+✅ Cron job confirmation
+✅ Disk and memory pressure
+✅ Uptime snapshot
+
+7. Manual Restore from backup
+Run: bash /opt/BM-Scripts/phase12_restore_manual.sh
+
+8. Delete credentials from deploy.log
+Run: bash /opt/BM-Scripts/phase13_clean_credentials.sh
+
 
 ====================================
+
 
 📁 Phase 1 – Update System
 Filename: phase0_update_system.sh
@@ -72,5 +85,26 @@ Purpose: Restore app from latest backup
 📁 Phase 9 – Master Deploy
 Filename: phase9_deploy_master.sh
 Purpose: Run all phases and schedule daily backup
+
+
+📁 Phase 10 – Audit Summary
+Filename: phase10_audit_summary.sh
+Purpose: Generate a summary of system state, backup integrity, and container health for audit logging
+
+
+📁 Phase 11 – Monitor Health
+Filename: phase11_monitor_health.sh
+Purpose: Check container status, backup freshness, cron job activity, and system resource usage
+
+
+📁 Phase 12 – Manual Restore
+Filename: phase12_restore_manual.sh
+Purpose: Allow manual selection and restoration of available backups with timestamp and age indicators
+
+
+📁 Phase 13 – Credential Log Cleaner
+Filename: phase13_clean_credentials.sh
+Purpose: Surgically remove sensitive credential traces from logs and temporary files for security hygiene
+
 
 ====================================
