@@ -1,6 +1,8 @@
 #!/bin/bash
 echo "👤 Phase 3: Creating secure admin user..."
 
+LOG_FILE="/opt/BM-Scripts/deploy.log"
+
 # === Generate unique username ===
 ADMIN_USER="bmadmin_$(date +%s)"
 
@@ -18,6 +20,9 @@ usermod -aG sudo $ADMIN_USER
 echo "✅ Admin user created:"
 echo "   Username: $ADMIN_USER"
 echo "   Password: $ADMIN_PASS"
+
+# === Log credentials ===
+echo "Server admin user: $ADMIN_USER" >> "$LOG_FILE"
 
 # === Transfer ownership of deployment and app folders ===
 if [ "$(stat -c %U /opt/BillionMail 2>/dev/null)" != "$ADMIN_USER" ]; then
