@@ -2,7 +2,7 @@
 echo "🚀 Phase 1: Bootstrapping deployment environment..."
 
 # === Define target directory ===
-SCRIPT_DIR="/opt/BillionMail/scripts"
+SCRIPT_DIR="/opt/BM-Scripts"
 
 # === Create directory if missing ===
 mkdir -p $SCRIPT_DIR

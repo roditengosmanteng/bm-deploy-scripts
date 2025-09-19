@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "🚀 Phase 9: Running full BillionMail deployment..."
 
-SCRIPT_DIR="/opt/BillionMail/scripts"
+SCRIPT_DIR="/opt/BM-Scripts"
 
 # === Execute each phase in order ===
 bash $SCRIPT_DIR/phase1_update_system.sh || { echo "❌ Phase 1 failed"; exit 1; }
